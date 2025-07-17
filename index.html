@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Reyna Sha</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --primary: #f8a5c2;
+            --secondary: #f5cd79;
+            --accent: #78c4d4;
+            --dark: #574b90;
+            --light: #f7f1e3;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: #333;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            font-style: italic;
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .love-section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .love-section::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 100px;
+            height: 100px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+        
+        .love-section::after {
+            content: "";
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+        
+        /* Carrusel de imágenes */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .carousel-slide {
+            display: flex;
+            width: 100%;
+            height: 400px;
+            position: relative;
+        }
+        
+        .carousel-item {
+            min-width: 100%;
+            transition: opacity 1s ease-in-out;
+            position: relative;
+        }
+        
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+        
+        .carousel-control {
+            background-color: rgba(255,255,255,0.5);
+            border: none;
+            color: var(--dark);
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .carousel-control:hover {
+            background-color: rgba(255,255,255,0.8);
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 10;
+        }
+        
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.5);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .indicator.active {
+            background-color: var(--primary);
+            transform: scale(1.2);
+        }
+        
+        /* Resto de los estilos... */
+        .interactive-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .interactive-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        
+        .interactive-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .music-player {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .player-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .player-btn:hover {
+            background-color: var(--dark);
+            transform: scale(1.1);
+        }
+        
+        .progress-container {
+            background-color: #eee;
+            height: 6px;
+            border-radius: 3px;
+            margin: 1rem 0;
+            cursor: pointer;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            height: 100%;
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s;
+        }
+        
+        .secret-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 100;
+            text-align: center;
+            display: none;
+            max-width: 80%;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--dark), #4b3869);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .turtle-animation {
+            position: fixed ;
+            bottom: 20px;
+            left: -250px;
+            right: 250px;
+            width: 400px;
+            transition: left 10s linear;
+        }
+        
+        .pet-name-display {
+            background-color: var(--accent);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 1rem 0;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .carousel-container {
+                height: 500px;
+            }
+        }
+        .carousel-item {
+        display: none;
+        height: 500px;
+        opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .carousel-item.active {
+            display: block;
+            height: 500px;
+            opacity: 1;
+    }
+    .music-player {
+  background: linear-gradient(to bottom, #fff0f5, #ffe4e1);
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(255, 192, 203, 0.4);
+  animation: fadeIn 2s ease;
+  position: relative;
+}
+
+.music-player h2 {
+  font-family: 'Georgia', serif;
+  font-size: 28px;
+  color: #b30059;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px #ffb6c1;
+}
+
+.progress-container {
+  background: #ffd6e8;
+  height: 10px;
+  border-radius: 10px;
+  margin: 20px auto;
+  width: 80%;
+  overflow: hidden;
+  box-shadow: inset 0 0 5px #ff69b4;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(to right, #ff69b4, #ff1493);
+  transition: width 0.3s ease-in-out;
+}
+
+.player-controls {
+  margin-top: 20px;
+}
+
+.player-btn {
+  background-color: #fff0f5;
+  border: 2px solid #ff69b4;
+  color: #ff1493;
+  font-size: 24px;
+  border-radius: 50%;
+  margin: 0 10px;
+  padding: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.player-btn:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px #ff69b4;
+}
+
+.pulse {
+  animation: pulseEffect 2s infinite;
+}
+
+.flower-row {
+  font-size: 24px;
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.flower {
+  animation: float 4s ease-in-out infinite;
+}
+
+.flower:nth-child(even) {
+  animation-delay: 2s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseEffect {
+  0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.5); }
+  70% { box-shadow: 0 0 0 15px rgba(255, 105, 180, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
+}
+#catchMeBtn {
+    position: fixed;
+    z-index: 1000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: top 0.3s ease, left 0.3s ease;
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Para Mi Reyna SHA</h1>
+        <p class="subtitle">Para la Mujer Más Maravillosa del Mundo, Sharay Danaysia</p>
+    </header>        
+        
+    <div class="main-container">
+        <section class="love-section">
+            <h2>Haz Click...</h2>
+            <button class="interactive-btn" id="secretBtn">Lee este Mensaje</button>
+            <div class="pet-name-display" id="petNameDisplay">
+                <h3>SHARREY tiene 212 Días en la tierra🥰</h3>
+                            </div>
+            <button class="interactive-btn" id="animateBtn">¡Sorpréndeme!</button>
+            <button class="interactive-btn" id="petNameBtn">¿Nuestro mascota?</button>
+            <button class="interactive-btn" id="catchMeBtn">¡Atrápa!</button>
+
+            <!-- <button class="interactive-btn" id="animateBtn">¡Sorpréndeme!</button> -->
+        </section>
+        
+        <section class="gallery-section">
+            <div class="carousel-container">
+                <div class="carousel-slide">
+                    <div class="carousel-item active">
+                        <img src="Sha.jpeg" alt="Sharay 1">
+                        <!-- <img src="https://placehold.co/800x400/78c4d4/FFFFFF?text=Tortuga+feliz" alt="Tortuga marina nadando en aguas cristalinas con rayos de sol filtrándose"> -->
+                          <img src="Sha.jpeg" alt="Mi Reyna">
+                        <div class="carousel-caption">Mi Princesa   </div>
+                    </div>
+                    <div class="carousel-item">
+                        <!-- <img src="https://placehold.co/800x400/f5cd79/FFFFFF?text=Campos+de+girasoles" alt="Campo extenso de girasoles bajo un cielo azul despejado"> -->
+                         <img src="Reyna.jpeg" alt="Sus virtudes son unicas"> 
+                        <div class="carousel-caption">Momentos Unicos</div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="reyna final.jpeg" alt="Tulipanes rojos y rosados en un jardín bien cuidado">
+                        <div class="carousel-caption">Tus plantas favoritas: Tulipanes</div>
+                    </div>
+                      <div class="carousel-item">
+                        <img src="Reyna_face.jpg"alt="Estudio de música con instrumentos y partituras">
+                        <div class="carousel-caption">Tu pasión: La música</div>
+                    </div>
+                      <div class="carousel-item">
+                        <img src="Reyna_whatsapp (1).jpeg"alt="Estudio de música con instrumentos y partituras">
+                        <div class="carousel-caption">Tu pasión: La música</div>
+                    </div>
+                      <div class="carousel-item">
+                        <img src="Reyna_whatsapp (2).jpeg"alt="Estudio de música con instrumentos y partituras">
+                        <div class="carousel-caption">Tu pasión: La música</div>
+                    </div>
+                     <div class="carousel-item">
+                        <img src="Sha_face2.jpg"alt="Estudio de música con instrumentos y partituras">
+                        <div class="carousel-caption">Tu pasión: La música</div>
+                    </div>
+                     <div class="carousel-item">
+                        <img src="pareja.png"alt="Estudio de música con instrumentos y partituras">
+                        <div class="carousel-caption">Tu pasión: La música</div>
+                    </div>
+                     <div class="carousel-item">
+                        <img src="image.png"alt="Estudio de música con instrumentos y partituras">
+                        <div class="carousel-caption">Tu pasión: La música</div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="rey.jpeg"alt="Estudio de música con instrumentos y partituras">
+                        <div class="carousel-caption">Tu pasión: La música</div>
+                    </div>
+
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-control" id="prevBtn">❮</button>
+                    <button class="carousel-control" id="nextBtn">❯</button>
+                </div>
+                <div class="carousel-indicators" id="indicators"></div>
+            </div>
+        </section>
+        
+    <section class="music-player floral-frame">
+  <h2>🌼Momentos Inolvidables🌹</h2>
+
+  <div class="flower-row top-flowers">
+    <span class="flower">🌷</span>
+    <span class="flower">🌻</span>
+    <span class="flower">🌹</span>
+    <span class="flower">🌼</span>
+    <span class="flower">🌸</span>
+    <span class="flower">🌺</span>
+  </div>
+
+  <div class="progress-container" id="progressContainer">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <div class="player-controls">
+    <button class="player-btn pulse" id="musicPrevBtn"><i class="fas fa-backward"></i></button>
+    <button class="player-btn pulse" id="musicPlayBtn"><i class="fas fa-play" id="playIcon"></i></button>
+    <button class="player-btn pulse" id="musicNextBtn"><i class="fas fa-forward"></i></button>
+  </div>
+
+  <div class="flower-row bottom-flowers">
+    <span class="flower">🌷</span>
+    <span class="flower">🌼</span>
+    <span class="flower">🌻</span>
+    <span class="flower">🌸</span>
+    <span class="flower">🌺</span>
+    <span class="flower">🌹</span>
+  </div>
+</section>
+
+       
+    </div>
+    
+    <div class="secret-message" id="secretMessage">
+        <button class="close-btn" id="closeBtn">&times;</button>
+        <h2>Para mi Reyna Sha:</h2>
+        <p> No sé si alguna vez podré expresarte todo lo que has significado en mi vida Amorcita🥹, pero quiero intentarlo. Desde que estás a mi lado, me siento más enfocado, más fuerte y más humano. Has despertado en mí el deseo de ser mejor en todos los sentidos: como persona, como profesional, como pareja😊. Tu presencia ha sido ese empujón que necesitaba. Como Joel, deseo caminar contigo, apoyarte en cada meta que te propongas y darte siempre lo mejor de mí✨✨✨✨✨.</p>
+        
+    </div>
+    
+    <img src="tortuga_ga.png" alt="Tortuga animada" class="turtle-animation" id="turtleAnim">
+    
+    <footer>
+        <p>Creado por Rey con todo mi amor para Sharay Danaysia - Mi Reyna Sha</p>
+        <p>© <span id="currentYear"></span> Eterno amor</p>
+    </footer>
+    <audio id="bgMusic" autoplay loop>
+        <source src="HA-ASH, Prince Royce - 100 Años.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio.
+    </audio>
+    <script>
+        // Crear corazones flotantes
+        function createHearts() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️ 🌸 🌻';
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = Math.random() * 100 + 'vh';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        
+        setInterval(createHearts, 300);
+        
+        // Carrusel de imágenes
+        const carouselSlide = document.querySelector('.carousel-slide');
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicatorsContainer = document.getElementById('indicators');
+        
+        let currentIndex = 0;
+        let intervalId;
+        const intervalTime = 1000; // 4 segundos
+        
+        // Crear indicadores
+        carouselItems.forEach((_, index) => {
+            const indicator = document.createElement('button');
+            indicator.classList.add('indicator');
+            if(index === 0) indicator.classList.add('active');
+            indicator.addEventListener('click', () => {
+                goToSlide(index);
+            });
+            indicatorsContainer.appendChild(indicator);
+        });
+        
+        const indicators = document.querySelectorAll('.indicator');
+        
+        // Función para avanzar al siguiente slide
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % carouselItems.length;
+            updateCarousel();
+        }
+        // Música de fondo: autoplay con fallback
+        // window.addEventListener('DOMContentLoaded', () => {
+        //     const music = document.getElementById('bgMusic');
+
+        //     const playPromise = music.play();
+
+        //     if (playPromise !== undefined) {
+        //         playPromise.then(() => {
+        //             // Reproducción automática exitosa
+        //         }).catch(() => {
+        //             // Autoplay fallido: esperar el primer clic del usuario
+        //             document.body.addEventListener('click', () => {
+        //                 music.play();
+        //             }, { once: true });
+        //         });
+        //             }
+        // });
+            window.addEventListener('DOMContentLoaded', () => {
+            const music = document.getElementById('bgMusic');
+            
+            // Establece el segundo desde donde deseas empezar (ej. 30 segundos)
+            music.currentTime = 30;
+
+            const playPromise = music.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    // Reproducción automática exitosa
+                }).catch(() => {
+                    // Si falla el autoplay, espera clic del usuario
+                    document.body.addEventListener('click', () => {
+                        music.currentTime = 30; // Reinicia desde el punto deseado
+                        music.play();
+                    }, { once: true });
+                });
+            }
+        });
+
+        // Función para retroceder al slide anterior
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
+            updateCarousel();
+        }
+        
+        // Función para ir a un slide específico
+        function goToSlide(index) {
+            currentIndex = index;
+            updateCarousel();
+        }
+        
+        // Actualizar el carrusel
+        function updateCarousel() {
+            carouselItems.forEach((item, index) => {
+                if(index === currentIndex) {
+                    item.classList.add('active');
+                    indicators[index].classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                    indicators[index].classList.remove('active');
+                }
+            });
+            
+            // Reiniciar el intervalo cuando se cambia manualmente
+            resetInterval();
+        }
+        
+        // Iniciar el intervalo automático
+        function startInterval() {
+            intervalId = setInterval(nextSlide, intervalTime);
+        }
+        
+        // Reiniciar el intervalo
+        function resetInterval() {
+            clearInterval(intervalId);
+            startInterval();
+        }
+        
+        // Event listeners
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+        
+        // Iniciar automáticamente
+        startInterval();
+        
+        // Mensaje secreto
+        const secretBtn = document.getElementById('secretBtn');
+        const secretMessage = document.getElementById('secretMessage');
+        const closeBtn = document.getElementById('closeBtn');
+        
+        secretBtn.addEventListener('click', () => {
+            secretMessage.style.display = 'block';
+        });
+        
+        closeBtn.addEventListener('click', () => {
+            secretMessage.style.display = 'none';
+        });
+        
+        // Reproductor de música
+        const musicPlayBtn = document.getElementById('musicPlayBtn');
+        const playIcon = document.getElementById('playIcon');
+        const progressBar = document.getElementById('progressBar');
+        const progressContainer = document.getElementById('progressContainer');
+        let isPlaying = false;
+        
+        musicPlayBtn.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            if(isPlaying) {
+                playIcon.classList.remove('fa-play');
+                playIcon.classList.add('fa-pause');
+                animateProgressBar();
+            } else {
+                playIcon.classList.remove('fa-pause');
+                playIcon.classList.add('fa-play');
+                stopProgressBar();
+            }
+        });
+        
+        function animateProgressBar() {
+            let width = 0;
+            const interval = setInterval(() => {
+                if(width >= 100 || !isPlaying) {
+                    clearInterval(interval);
+                    return;
+                }
+                width += 0.5;
+                progressBar.style.width = width + '%';
+            }, 100);
+        }
+        
+        function stopProgressBar() {
+            // Detener la animación
+        }
+        
+        progressContainer.addEventListener('click', (e) => {
+            const rect = progressContainer.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            progressBar.style.width = pos * 100 + '%';
+        });
+        
+        // Botón de nombre de mascota
+        const petNameBtn = document.getElementById('petNameBtn');
+        const petNameDisplay = document.getElementById('petNameDisplay');
+        
+        petNameBtn.addEventListener('click', () => {
+            petNameDisplay.style.display = petNameDisplay.style.display === 'block' ? 'none' : 'block';
+        });
+        
+        // Animal animado
+        const animateBtn = document.getElementById('animateBtn');
+        const turtleAnim = document.getElementById('turtleAnim');
+        
+            // Movimiento infinito de la tortuga (con velocidad ajustable)
+        let turtleDirection = 1;          // 1: derecha, -1: izquierda
+        let turtleInterval;
+        const speed = 50;                  // ⬅️ píxeles por tick  (sube este número para ir más rápido)
+        const frameTime = 16;             // ⬅️ ms por tick (~60 FPS).  Baja este número para ir más rápido.
+
+        animateBtn.addEventListener('click', () => {
+            const turtle = document.getElementById('turtleAnim');
+            let position = -100;
+
+            clearInterval(turtleInterval); // detén animaciones previas
+
+            turtleInterval = setInterval(() => {
+                position += speed * turtleDirection;
+
+                // Cambia de dirección en los bordes
+                if (position >= window.innerWidth) turtleDirection = -1;
+                else if (position <= -100)         turtleDirection = 1;
+
+                turtle.style.left = position + 'px';
+            }, frameTime);
+        });
+                
+        // Año actual
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const catchMeBtn = document.getElementById('catchMeBtn');
+
+catchMeBtn.addEventListener('mouseover', () => {
+    const maxX = window.innerWidth - catchMeBtn.offsetWidth;
+    const maxY = window.innerHeight - catchMeBtn.offsetHeight;
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY);
+    
+    catchMeBtn.style.left = randomX + 'px';
+    catchMeBtn.style.top = randomY + 'px';
+});
+
+catchMeBtn.addEventListener('click', () => {
+    alert('¡Me atrapaste! 💘 Esta página es solo una pequeña prueba de cuánto te amo.');
+});
+
+    </script>
+</body>
+</html>
